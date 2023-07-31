@@ -15,7 +15,6 @@ $conectar= $db->conectar();
     {
         $id=$_POST['idm'];
         $cilindraje = $_POST['cilindraje'];
-        $precio = $_POST['precio'];
 
         
 
@@ -30,7 +29,7 @@ $conectar= $db->conectar();
 
         }
 
-        else if ($id=="" || $cilindraje=="" || $precio =="")
+        else if ($id=="" || $cilindraje=="" )
         {
             echo '<script> alert (" EXISTEN DATOS VACIOS");</script>';
             echo '<script> windows.location="index.php"</script>';
@@ -38,8 +37,8 @@ $conectar= $db->conectar();
         
         else
         {
-            $insertsql=$conectar->prepare("INSERT INTO cilindraje(id_cilindraje,cilindraje,precio) VALUES (?,?,?);");
-            $insertsql->execute([$id,$cilindraje,$precio]);
+            $insertsql=$conectar->prepare("INSERT INTO cilindraje(id_cilindraje,cilindraje) VALUES (?,?);");
+            $insertsql->execute([$id,$cilindraje]);
             echo '<script>alert ("Registro Exitoso, Gracias");</script>';
             echo '<script> window.location="cilindraje.php"</script>';
         }
@@ -59,7 +58,7 @@ $conectar= $db->conectar();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cilindraje</title>
-       <?php require_once "index.php"; ?>
+    <?php require_once "navbar.php"  ?>
        
        
 </head>
@@ -76,8 +75,6 @@ $conectar= $db->conectar();
 						<input type="number" oninput="maxlengthNumber(this)" maxlength="3" class="form-control input-sm" id="id" name="idm">
 						<label>Cilindraje</label>
 						<input type="text" oninput="multipletext(this)" maxlength="35" class="form-control input-sm" id="marca" name="cilindraje">
-                        <label>Precio</label>
-                        <input type="number" oninput="maxLengthNumber(this)" maxlength="10" class="form-control input-sm" id="marca" name="precio">
                         <br>
 						
 						<button name="validar" type="submit" id="btnAgregaArticulo" class="btn btn-success"  >Agregar</button>

@@ -28,7 +28,7 @@ if((isset($_POST['actualizar'])))
     
     else
     {
-        $documento = $_SESSION['documento'];
+        $documento = $_POST['documento'];
         $insertsql=$conexion->prepare("UPDATE usuarios SET password ='$clave_procesada' where documento='$documento'");
         $insertsql->execute();
         
@@ -38,27 +38,6 @@ if((isset($_POST['actualizar'])))
     
 }
 ?>
-
-<?php
-
- if($_POST['enviar']){
- 
-    $documento = $_POST["documento"];
-    
-    $sql=$conexion->prepare("SELECT * FROM usuarios WHERE documento= '$documento'");
-    $sql->execute();
-    $fila=$sql->fetch();
-    
-    if($fila){
-        $_SESSION['documento']=$fila['documento'];
-    
-
-
-
-?>
-
-
-
 
 
 <!DOCTYPE html>
@@ -85,6 +64,10 @@ if((isset($_POST['actualizar'])))
             <h1>Recuperar contraseña</h1>
             <p>Completa la informacion</p>
             <div class="campo">
+                <label for="contra">Documento</label>
+                <input type="number" oninput="maxlengthNumber(this);"  maxlength="10" placeholder="Tu documento" id="documento" name="documento" >
+            </div>
+            <div class="campo">
                 <label for="contra">Contraseña</label>
                 <input type="password" oninput="multipletext(this);" minlength="6" maxlength="12" placeholder="nueva contraseña" id="contra" name="contra" >
             </div>
@@ -106,6 +89,15 @@ if((isset($_POST['actualizar'])))
         
     </div>
     </div>
+    <script>
+        function maxlengthNumber(obj){
+            if(obj.value.length > obj.maxLength){
+                obj.value = obj.value.slice(0, obj.maxLength);
+                alert("Debe ingresar solo el numero de digitos establecidos");
+
+            }
+        }
+    </script>
     <script>
         function multipletext(e) {
             key=e.keyCode || e.which;
@@ -135,13 +127,4 @@ if((isset($_POST['actualizar'])))
     </script>
 </body>
 </html>
-<?php
-   }  
 
-   else{
-    echo '<script>alert ("El documento no existe en la base de  datos");</script>';
-    echo '<script>window.location="../../contraseña.html"</script>';
-   }
-
-}
-?>

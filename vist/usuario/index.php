@@ -1,144 +1,211 @@
 <?php 
     session_start();
 
-    include("../../controller/validar.php");
-
     require_once("../../bd/conexion.php");
+    
     $db = new Database();
-    $conectar= $db->conectar();
+    $conectar = $db->conectar();
     require_once ("../../controller/styles/dependencias.php");
 
-    $user = $conectar -> prepare("SELECT * FROM moto WHERE documento = '".$_SESSION["documento"]."'");
-    $user -> execute();
-    $user1 = $user -> fetch(PDO::FETCH_ASSOC);
+    // Obtener información de las motos del cliente logueado y sus detalles relacionados
+    $documento_id = $_SESSION['documento'];
+    $consultaMotos = $conectar->prepare("
+        SELECT 
+            m.placa, 
+            m.ultimo_cambio,
+            m.proximo_cambio_km,
+            m.proximo_cambio_fecha,
+            mo.modelo,
+            ma.marca,
+            ci.cilindraje,
+            co.color,
+            fv.fecha_vigencia_soat, 
+            fv.fecha_vigencia_tecnomecanica, 
+            u.nombre_completo AS nombre_cliente, 
+            u.email AS email_cliente
+        FROM moto m
+        INNER JOIN usuarios u ON m.documento = u.documento
+        INNER JOIN modelo mo ON m.id_modelo = mo.id_modelo
+        INNER JOIN marca ma ON m.id_marca = ma.id_marca
+        INNER JOIN cilindraje ci ON m.id_cilindraje = ci.id_cilindraje
+        INNER JOIN color co ON m.id_color = co.id_color
+        LEFT JOIN factura_venta fv ON m.placa = fv.placa
+        WHERE m.documento = ?
+        GROUP BY m.placa
+    ");
+    $consultaMotos->execute([$documento_id]);
+    $motos = $consultaMotos->fetchAll(PDO::FETCH_ASSOC);
+    
+    // Paginación
+    $motosPorPagina = 1; // Número de motos a mostrar por página
+    $totalMotos = count($motos);
+    $totalPaginas = ceil($totalMotos / $motosPorPagina);
 
-    $marca1 = $user1["id_marca"];
-    $usuario1 = $user1["documento"];
-    $linea1 = $user1["id_linea"];
-    $modelo1 = $user1["id_modelo"];
-    $cilindraje1 = $user1["id_cilindraje"];
-    $color1 = $user1["id_color"];
-    $tip_ser1 = $user1["id_tip_servicio"];
-    $tip_veh1 = $user1["id_clase"];
-    $carroceria1 = $user1["id_carroceria"];
-    $combustible1 = $user1["id_combustible"];
-    $barcode1 = $user1["barcode"];
-?>
+    if (!isset($_GET['pagina'])) {
+        $paginaActual = 1;
+    } else {
+        $paginaActual = $_GET['pagina'];
+    }
 
-<?php
-
-    $marca=$conectar->prepare("SELECT * from marca WHERE id_marca = '$marca1'");
-    $marca->execute();
-    $marca2 = $marca -> fetch();
-
-    $usuario=$conectar->prepare("SELECT * from usuarios WHERE documento = '$usuario1'");
-    $usuario->execute();
-    $usuario2 = $usuario -> fetch();
-
-    $linea=$conectar->prepare("SELECT * from linea WHERE id_linea = '$linea1'");
-    $linea->execute();
-    $linea2 = $linea -> fetch();
-
-    $modelo=$conectar->prepare("SELECT * from modelo WHERE id_modelo = '$modelo1'");
-    $modelo->execute();
-    $modelo2 = $modelo -> fetch();
-
-    $cilindraje=$conectar->prepare("SELECT * FROM cilindraje WHERE id_cilindraje = '$cilindraje1'");
-    $cilindraje->execute();
-    $cilindraje2 = $cilindraje -> fetch();
-
-    $color=$conectar->prepare("SELECT * FROM color WHERE id_color = '$color1'");
-    $color->execute();
-    $color2 = $color -> fetch();
-
-    $tip_ser=$conectar->prepare("SELECT * FROM tipo_servicio WHERE id_tip_servicio = '$tip_ser1'");
-    $tip_ser->execute();
-    $tip_ser2 = $tip_ser -> fetch();
-
-    $tip_veh=$conectar->prepare("SELECT * FROM tipo_vehiculo WHERE id_clase = '$tip_veh1'");
-    $tip_veh->execute();
-    $clase2 = $tip_veh -> fetch();
-
-    $carroceria=$conectar->prepare("SELECT * FROM tipo_carroceria WHERE id_carroceria = '$carroceria1'");
-    $carroceria->execute();
-    $carroceria2 = $carroceria-> fetch();
-
-    $combustible=$conectar->prepare("SELECT * FROM combustible WHERE id_combustible = '$combustible1'");
-    $combustible->execute();
-    $combustible2 = $combustible -> fetch();
-
-    // $barcode=$conectar->prepare("SELECT * FROM barcodem WHERE barcode = '$barcode1'");
-    // $barcode->execute();
-    // $barcode2 = $barcode -> fetch();
-?>
-
-<?php
-    if(isset($_POST['btncerrar']))
-        {
-            session_destroy();
-            header('location:../../index.html');
-        } 
+    $inicioMoto = ($paginaActual - 1) * $motosPorPagina;
+    $motosPaginadas = array_slice($motos, $inicioMoto, $motosPorPagina);
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <link rel="shortcut icon" href="../../controller/img/icono.png" type="image/x-icon">
-    <title>Menu</title>
-    <?php include_once("navar.php");?>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Cuenta</title>
+    <!-- Bootstrap CSS -->
 </head>
+
 <body>
-<br>
-<div class="container">
-    <table class="table table-hover table-condensed table-bordered" style="text-align: center;">
-        <caption><h2>Mis motos</h2></caption>
-        <thead>
-            <td>Placa</td>
-            <td>Marca</td>
-            <td>Descripcion</td>
-            <td>Propietario</td>
-            <td>KM</td>
-            <td>Linea</td>
-            <td>Cilindraje</td>
-            <td>Color</td>
-            <td>T. Servicio</td>
-            <td>Clase</td>
-            <td>Carroceria</td>
-            <td>Capacidad</td>
-            <td>Combustible</td>
-            <td>N. Motor</td>
-            <td>VIN</td>
-            <td>N. Chasis</td>
-            <!-- <td>Codigo</td> -->
-        </thead>
-        <tbody>
-            <td><?php echo $user1["placa"];?></td>
-            <td><?php echo $marca2["marca"];?></td>
-            <td><?php echo $user1["descripcion"];?></td>
-            <td><?php echo $usuario2["nombre_completo"];?></td>
-            <td><?php echo $user1["km"];?></td>
-            <td><?php echo $linea2["linea"];?></td>
-            <td><?php echo $cilindraje2["cilindraje"];?></td>
-            <td><?php echo $color2["color"];?></td>
-            <td><?php echo $tip_ser2["tip_servicio"];?></td>
-            <td><?php echo $clase2["tip_vehiculo"];?></td>
-            <td><?php echo $carroceria2["carroceria"];?></td>
-            <td><?php echo $user1["capacidad"];?></td>
-            <td><?php echo $combustible2["combustible"];?></td>    
-            <td><?php echo $user1["numero_motor"];?></td>
-            <td><?php echo $user1["vin"];?></td>
-            <td><?php echo $user1["numero_chasis"];?></td>
-            <!-- <?php 
-                while($barcode2 = $barcode -> fetch()): 
-            ?>
-            <td>
-                <img src="../admin/codigo/barcode.php?text=<?php echo $barcode2['barcode']?>&size=40&codetype=Code128&print=true" />
-            </td>
-            <?php
-                endwhile;
-            ?> -->
-        </tbody>
-    </table>
-</div>
+    <?php require_once("navar.php");?>
+
+    <div class="container mt-5">
+        <h1>Bienvenido a tu cuenta</h1>
+
+        <?php foreach ($motosPaginadas as $moto) { ?>
+            <div class="accordion mb-3" id="accordion-<?php echo $moto['placa']; ?>">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-<?php echo $moto['placa']; ?>">
+
+                            Información de tu moto (Placa: <?php echo $moto['placa']; ?>)
+                       
+                    </h2>
+                    <div id="collapse-<?php echo $moto['placa']; ?>" class="accordion-collapse collapse show" aria-labelledby="heading-<?php echo $moto['placa']; ?>" data-bs-parent="#accordion-<?php echo $moto['placa']; ?>">
+                        <div class="accordion-body">
+                            <p><strong>Cliente:</strong> <?php echo $moto['nombre_cliente']; ?></p>
+                            <p><strong>Email:</strong> <?php echo $moto['email_cliente']; ?></p>
+                            <p><strong>Modelo:</strong> <?php echo $moto['modelo']; ?></p>
+                            <p><strong>Marca:</strong> <?php echo $moto['marca']; ?></p>
+                            <p><strong>Cilindraje:</strong> <?php echo $moto['cilindraje']; ?></p>
+                            <p><strong>Color:</strong> <?php echo $moto['color']; ?></p>
+                            
+                            <!-- Información de cambio de aceite -->
+                            <h2>Información de Cambio de Aceite</h2>
+                            <?php
+                                // Obtener información de cambio de aceite de la tabla "moto"
+                                $ultimocambio = $moto["ultimo_cambio"];
+                                $proximoCambioAceiteFecha = $moto["proximo_cambio_fecha"];
+                                $kmPorCambioAceite = $moto["proximo_cambio_km"];
+
+                                if ($proximoCambioAceiteFecha !== null && $kmPorCambioAceite !== null) {
+                                    // Calcular la cantidad de días restantes para el próximo cambio de aceite
+                                    $fecha_hoy = date("Y-m-d");
+                                    $dias_restantes_cambio_aceite = (strtotime($proximoCambioAceiteFecha) - strtotime($fecha_hoy)) / (60 * 60 * 24);
+                            ?>
+                                    <p><strong>Su último cambio de aceite fue:</strong> <?php echo $ultimocambio; ?></p>
+                                    <p><strong>Próximo Cambio de Aceite:</strong> <?php echo $proximoCambioAceiteFecha; ?></p>
+                                    <p><strong>Kilómetros Recomendados:</strong> <?php echo $kmPorCambioAceite; ?></p>
+                                    <p><strong>Días Restantes para el Cambio de Aceite:</strong> <?php echo $dias_restantes_cambio_aceite; ?></p>
+                            <?php } else {
+                                    // Mostrar un mensaje cuando no hay información de cambio de aceite
+                                    echo "<p>No hay información de cambio de aceite para esta moto.</p>";
+                                }
+                            ?>
+
+                            <!-- Tabla de Facturas de Venta para esta moto -->
+                            <h2>Facturas de Venta</h2>
+                            <?php
+                                $consultaFacturas = $conectar->prepare("
+                                    SELECT
+                                        fv.id_venta,
+                                        fv.fecha,
+                                        fv.total,
+                                        p.nom_producto,
+                                        dv.cantidad AS cantidad_producto,
+                                        p.precio AS precio_producto,
+                                        s.servicio,
+                                        dvs.cantidad AS cantidad_servicio,
+                                        s.precio AS precio_servicio,
+                                        d.documentos,
+                                        dvdocu.id_documentos as docu,
+                                        d.precio AS precio_documento
+                                    FROM factura_venta fv
+                                    LEFT JOIN detalle_venta dv ON fv.id_venta = dv.id_venta
+                                    LEFT JOIN productos p ON dv.id_producto = p.id_productos
+                                    LEFT JOIN detalle_vservi dvs ON fv.id_venta = dvs.id_venta
+                                    LEFT JOIN servicio s ON dvs.id_servicio = s.id_servicios
+                                    LEFT JOIN detalle_vdocu dvdocu ON fv.id_venta = dvdocu.id_venta
+                                    LEFT JOIN documentos d ON dvdocu.id_documentos = d.id_documentos
+                                    WHERE fv.placa = ?
+                                ");
+                                $consultaFacturas->execute([$moto['placa']]);
+                                $facturas = $consultaFacturas->fetchAll(PDO::FETCH_ASSOC);
+                            ?>
+                            <div class="table-responsive">
+                                <table id="tablaFacturas" class="table table-striped table-bordered">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>ID Venta</th>
+                                            <th>Fecha de Venta</th>
+                                            <th>Total</th>
+                                            <th>Productos</th>
+                                            <th>Servicios</th>
+                                            <th>Documentos</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($facturas as $factura) { ?>
+                                            <tr>
+                                                <td><?php echo $factura["id_venta"]; ?></td>
+                                                <td><?php echo $factura["fecha"]; ?></td>
+                                                <td><?php echo $factura["total"]; ?></td>
+                                                <td>
+                                                    <?php
+                                                        if ($factura["cantidad_producto"] !== null) {
+                                                            echo "<strong>Producto:</strong> " . $factura["nom_producto"] . "<br><strong>Cantidad:</strong> " . $factura["cantidad_producto"] . "<br><strong>Precio:</strong> $" . $factura["precio_producto"] . "<br><strong>Subtotal:</strong> $" . $factura["cantidad_producto"] * $factura["precio_producto"];
+                                                        }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php
+                                                        if ($factura["cantidad_servicio"] !== null) {
+                                                            echo "<strong>Servicio:</strong> " . $factura["servicio"] . "<br><strong>Cantidad:</strong> " . $factura["cantidad_servicio"] . "<br><strong>Precio:</strong> $" . $factura["precio_servicio"] . "<br><strong>Subtotal:</strong> $" . $factura["cantidad_servicio"] * $factura["precio_servicio"];
+                                                        }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php
+                                                        if ($factura["docu"] !== null) {
+                                                            echo "<strong>Documento:</strong> " . $factura["documentos"] .  "<br><strong>Precio:</strong> $" . $factura["precio_documento"] . "<br><strong>Subtotal:</strong> $" . $factura["precio_documento"];
+                                                        }
+                                                    ?>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+
+        <!-- Paginación -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <?php for ($i = 1; $i <= $totalPaginas; $i++) { ?>
+                    <li class="page-item <?php if ($i === $paginaActual) echo 'active'; ?>"><a class="page-link" href="?pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                <?php } ?>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Bootstrap JS -->
+   
+    <script>
+    // Inicializar DataTables
+    $(document).ready(function() {
+        $('#tablaFacturas').DataTable();
+    });
+    </script>
+
 </body>
+
 </html>

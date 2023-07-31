@@ -1,0 +1,9 @@
+Administrador: 
+documento: 1234567890
+usuario: admin
+contraseña: admi123
+
+Usuario:
+documento: 1110458199
+usuario: usuario
+contraseña: contrasena

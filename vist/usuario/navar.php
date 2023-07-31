@@ -1,3 +1,13 @@
+<?php
+  if(isset($_POST['btncerrar']))
+  {
+      session_destroy();
+      header('location:../../index.html');
+  }
+  date_default_timezone_set('America/Bogota');
+?>
+
+
 <div id="nav">
     <div class="navbar navbar-inverse navbar-fixed-top" data-spy="affix" data-offset-top="100">
         <div class="container">
@@ -18,6 +28,8 @@
             </li> 
             
             <li><a href="misdatos.php"><span class="glyphicon glyphicon-user"></span>‎ ‎ ‎Mis datos</a>
+            </li>
+            <li><a href="documentos.php"><span class="glyphicon glyphicon-user"></span>‎ ‎ ‎Documentos legales </a>
             </li>
             <li class="dropdown" >
             <a href="#" style="color: red"  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span>  <span class="caret"></span></a>

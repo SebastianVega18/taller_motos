@@ -20,7 +20,7 @@ $conectar= $db->conectar();
 
         
 
-        $validar="SELECT * FROM servicio WHERE id_servicios ='$id' or servicio ='$servicio'";
+        $validar="SELECT id_servicios FROM servicio WHERE id_servicios ='$id' or servicio ='$servicio'";
         $queryi=$conectar->prepare($validar);
         $queryi->execute();
         $fila1=$queryi->fetchAll(PDO::FETCH_ASSOC);
@@ -60,7 +60,7 @@ $conectar= $db->conectar();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Servicios</title>
-       <?php require_once "index.php"; ?>
+    <?php require_once "navbar.php"  ?>
        
        
 </head>

@@ -29,7 +29,6 @@
 	<tr>
         <td>Referencia</td>
 		<td>Nombre</td>
-        <td>Precio</td>
 
 	
 		<td>Editar</td>
@@ -42,7 +41,6 @@
 	<tr>
 		<td><?php echo $produ['id_cilindraje']; ?></td>
 		<td><?php echo $produ['cilindraje']; ?></td>
-		<td><?php echo $produ['precio']; ?></td>
 		
 		<td>
         <form method="get" action="actucilin.php"> 

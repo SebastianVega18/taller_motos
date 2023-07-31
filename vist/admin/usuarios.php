@@ -32,7 +32,7 @@ $sqlt->execute();
 
         $clave_procesada=password_hash($pass,PASSWORD_BCRYPT,["cost"=>15]);
 
-        $validar="SELECT * FROM usuarios WHERE documento='$id'or usuario='$usuario' ";
+        $validar="SELECT documento FROM usuarios WHERE documento='$id'or usuario='$usuario' ";
         $queryi=$conectar->prepare($validar);
         $queryi->execute();
         $fila1=$queryi->fetchAll(PDO::FETCH_ASSOC);
@@ -74,7 +74,7 @@ $sqlt->execute();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuarios</title>
-       <?php require_once "index.php"; ?>
+    <?php require_once "navbar.php"  ?>
        
        
 </head>

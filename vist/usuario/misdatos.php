@@ -1,6 +1,5 @@
 <?php 
-    session_start();
-
+   
     include("../../controller/validar.php");
     require_once("../../bd/conexion.php");
     require_once ("../../controller/styles/dependencias.php");
@@ -43,7 +42,8 @@
 <body>
 <div class="container">
     <table class="table table-hover table-condensed table-bordered" style="text-align: center;">
-        <caption><h2>Mis datos</h2></caption>
+        <h2>Mis datos</h2>
+        <br>
         <tr>
             <td>Documento</td>
             <td>Nombre Completo</td>
@@ -68,19 +68,20 @@
         <div class="col-sm-4">
             <form method="POST" class="row justify-content-center" name="formactu">
                 <caption><h2>Actualizar mis datos</h2></caption>
+                <br>
                 <div class="col-5">
                     <label for="formGroupExampleInput" class="form-label">Telefono</label>
-                    <input type="number" oninput="maxlengthNumber(this)" name="telefono" class="form-control" value="<?php echo $cons["telefono"];?>">
+                    <input type="number" oninput="maxlengthNumber(this)" minLength="6" maxLength="10" name="telefono" class="form-control" value="<?php echo $cons["telefono"];?>">
                 </div>
                 <br>
                 <div class="col-5">
                     <label for="formGroupExampleInput" class="form-label">E-mail</label>
-                    <input type="e-mail" oninput="multipletext(this)" name="email" class="form-control" value="<?php echo $cons["email"];?>">
+                    <input type="e-mail" oninput="multipletext(this)" maxlength="32" name="email" class="form-control" value="<?php echo $cons["email"];?>">
                 </div>
                 <br>
                 <div class="col-5">
                     <label for="formGroupExampleInput" class="form-label">Usuario</label>
-                    <input type="text" oninput="multipletext(this)" name="usuario" class="form-control" value="<?php echo $cons["usuario"];?>">
+                    <input type="text" oninput="multipletext(this)" maxlength="16" name="usuario" class="form-control" value="<?php echo $cons["usuario"];?>">
                 </div>
                 <br>
                 <button type="submit" class="btn btn-success">Actualizar</button>
