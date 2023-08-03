@@ -6,44 +6,32 @@
     require_once "../../controller/styles/dependencias.php";
 
 ?>
-   <?php
-    
-        $consulta=$conectar->prepare("SELECT * from documentos where id_documentos ='".$_GET['actu']."' ");
-             $consulta->execute();
-             $query=$consulta->fetch(PDO::FETCH_ASSOC);
-           
-       
 
-       if ((isset($_POST["actualizar"]))&&($_POST["actualizar"]=="form"))
-       {
+<?php
+    
+    $consulta=$conectar->prepare("SELECT * from documentos where id_documentos ='".$_GET['actu']."' ");
+    $consulta->execute();
+    $query=$consulta->fetch(PDO::FETCH_ASSOC);
+        
+    if ((isset($_POST["actualizar"]))&&($_POST["actualizar"]=="form"))
+    {
         $nombre = $_POST['nombreu'];
         $precio = $_POST['precio'];
         
-        
-   
-   
-    
-
-         if ($nombre=="" || $precio == "")
+        if ($nombre=="" || $precio == "")
         {
             echo '<script> alert (" EXISTEN DATOS VACIOS");</script>';
             echo '<script> windows.location="index.php"</script>';
         }
-       
         else
         {
-          $actusql=$conectar->prepare("UPDATE documentos SET documentos ='$nombre', precio = '$precio' WHERE id_documentos ='".$_GET['actu']."'");
-          $actusql->execute();
-          echo '<script>alert ("Actualizacion exitosa");</script>';
-        echo '<script> window.location="doculegal.php"</script>';
-            
-    
+            $actusql=$conectar->prepare("UPDATE documentos SET documentos ='$nombre', precio = '$precio' WHERE id_documentos ='".$_GET['actu']."'");
+            $actusql->execute();
+            echo '<script>alert ("Actualizacion exitosa");</script>';
+            echo '<script> window.location="doculegal.php"</script>';
         }
-   
-       }
-  
-   ?>
-
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -55,22 +43,20 @@
     <?php require_once "navbar.php"  ?>
 </head>
 <body>
-     
 		<div class="container">
 			<h1>Documentos legales</h1>
+            <br>
 			<div class="row">
 				<div class="col-sm-4">
 					<form id="frmArticulos"  name="formu" method="post" >
-						
                         <label>Referencia</label>
 						<input type="number" disabled class="form-control input-sm" id="id" name="idu"   value="<?php echo $query['id_documentos'] ?>">
-
+                        <br>
 						<label>Documento legal</label>
 						<input type="text" oninput="multipletext(this)" maxlength="20" class="form-control input-sm" id="nombre" name="nombreu"  value="<?php echo $query['documentos'] ?>">
-
+                        <br>
                         <label>Precio</label>
 						<input type="number" oninput="maxlengthNumber(this)" maxlength="10" class="form-control input-sm" id="precio" name="precio"   value="<?php echo $query['precio'] ?>">
-			
 						<br>
 						<button name="validar" type="submit" id="btnAgregaArticulo" class="btn btn-primary btn-s">Actualizar</button>
                         <input type="hidden" name="actualizar" value="form">

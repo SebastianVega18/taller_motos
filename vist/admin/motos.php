@@ -113,6 +113,7 @@ $combustible->execute();
 
 		<div class="container">
 			<h1>Motos</h1>
+            <br>
 			<div class="row">
 				<div class="col-sm-4">
 					<form id="frmArticulos"  name="formu" method="post" >
@@ -127,6 +128,7 @@ $combustible->execute();
 
                              ?>
 						</select>
+                        <br>
                         <label >Propietario</label>
                         <select class="form-control input-sm" name="propietario">
 							<option disabled selected value="">Selecione propietario</option>
@@ -137,13 +139,17 @@ $combustible->execute();
                              };
 
                              ?>
-						</select>    
+						</select>
+                        <br>    
                         <label>Placa</label>
 						<input type="text" oninput="multipletext(this)" maxlength="6" class="form-control input-sm" id="id" name="id">
+                        <br>
 						<label>Descripcion</label>
 						<input type="text" oninput="multipletext(this)" maxlength="25" class="form-control input-sm" id="descripcion" name="descripcion">
+                        <br>
 						<label>kilometraje</label>
 						<input type="number" oninput="maxlengthNumber(this)" maxlength="3" min="0" class="form-control input-sm" id="cantidad" name="cantidad">
+                        <br>
                         <label>Linea</label>
 						<select class="form-control input-sm" name="linea">
 							<option disabled selected value="">Selecciona linea</option>
@@ -155,6 +161,7 @@ $combustible->execute();
 
                              ?>
 						</select>
+                        <br>
                         <label>Modelo</label>
 						<select class="form-control input-sm" name="modelo">
 							<option disabled selected value="">Selecciona modelo</option>
@@ -166,6 +173,7 @@ $combustible->execute();
 
                              ?>
 						</select>
+                        <br>
                         <label>Cilindraje</label>
 						<select class="form-control input-sm" name="cilindraje">
 							<option disabled selected value="">Selecciona cilindraje</option>
@@ -177,6 +185,7 @@ $combustible->execute();
 
                              ?>
 						</select>
+                        <br>
                         <label>Color</label>
 						<select class="form-control input-sm" name="color">
 							<option disabled selected value="">Selecciona color</option>
@@ -188,6 +197,7 @@ $combustible->execute();
 
                              ?>
 						</select>
+                        <br>
                         <label>Tipo de servcio</label>
 						<select class="form-control input-sm" name="tipser">
 							<option disabled selected value="">Selecciona servicio</option>
@@ -199,6 +209,7 @@ $combustible->execute();
 
                              ?>
 						</select>
+                        <br>
                         <label>Tipo de vehiculo</label>
 						<select class="form-control input-sm" name="tipveh">
 							<option disabled selected value="">Selecciona tipo de vehiculo</option>
@@ -210,6 +221,7 @@ $combustible->execute();
 
                              ?>
 						</select>
+                        <br>
                         <label>Carroceria</label>
 						<select class="form-control input-sm" name="carroceria">
 							<option disabled selected value="">Selecciona carroceria</option>
@@ -221,8 +233,10 @@ $combustible->execute();
 
                              ?>
 						</select>
+                        <br>
                         <label>Capacidad</label>
                         <input type="number" oninput="maxlengthNumber(this)" maxlength="2" class="form-control input-sm" id="capacidad" name="capacidad">
+                        <br>
                         <label>Combustible</label>
 						<select class="form-control input-sm" name="combustible">
 							<option disabled selected value="">Selecciona combustible</option>
@@ -234,10 +248,13 @@ $combustible->execute();
 
                              ?>
 						</select>
+                        <br>
                         <label>Numero de motor</label>
                         <input type="number" oninput="maxlengthNumber(this)" maxlength="10" class="form-control input-sm" id="num_motor" name="num_motor">
+                        <br>
                         <label>VIN</label>
                         <input type="number" oninput="maxlengthNumber(this)" maxlength="10" class="form-control input-sm" id="vin" name="vin">
+                        <br>
                         <label>Numero de chasis</label>
                         <input type="number" oninput="maxlengthNumber(this)" maxlength="10" class="form-control input-sm" id="num_chasis" name="num_chasis">
                         <br>

@@ -52,12 +52,10 @@
         
 		<td>
         <form method="get" action="actualizarusu.php"> 
-           
-        <button type="submit" data-toggle="modal" data-target="#abremodalUpdateArticulo" class="btn btn-success btn-s">
-		<input type="hidden" name="actu" value="<?php echo $produ['documento']?>">
-				<span class="glyphicon glyphicon-pencil"></span>
-        </button>
-        
+			<button type="submit" data-toggle="modal" data-target="#abremodalUpdateArticulo" class="btn btn-success btn-s">
+			<input type="hidden" name="actu" value="<?php echo $produ['documento']?>">
+					<span class="glyphicon glyphicon-pencil"></span>
+			</button>
         </form>
 		</td>
     

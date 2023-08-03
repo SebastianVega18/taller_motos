@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-07-2023 a las 13:09:54
+-- Tiempo de generación: 03-08-2023 a las 04:13:48
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -71,13 +71,6 @@ CREATE TABLE `cilindraje` (
   `cilindraje` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `cilindraje`
---
-
-INSERT INTO `cilindraje` (`id_cilindraje`, `cilindraje`) VALUES
-(2, '150');
-
 -- --------------------------------------------------------
 
 --
@@ -89,13 +82,6 @@ CREATE TABLE `color` (
   `color` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `color`
---
-
-INSERT INTO `color` (`id_color`, `color`) VALUES
-(1, 'negro');
-
 -- --------------------------------------------------------
 
 --
@@ -106,13 +92,6 @@ CREATE TABLE `combustible` (
   `id_combustible` int(11) NOT NULL,
   `combustible` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `combustible`
---
-
-INSERT INTO `combustible` (`id_combustible`, `combustible`) VALUES
-(1, 'gasolina');
 
 -- --------------------------------------------------------
 
@@ -154,14 +133,6 @@ CREATE TABLE `detalle_vdocu` (
   `id_venta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `detalle_vdocu`
---
-
-INSERT INTO `detalle_vdocu` (`id_detadocu`, `id_documentos`, `subtotal`, `id_venta`) VALUES
-(22, 10, 1000000.00, 64),
-(23, 20, 200000.00, 65);
-
 -- --------------------------------------------------------
 
 --
@@ -175,13 +146,6 @@ CREATE TABLE `detalle_venta` (
   `id_venta` int(11) NOT NULL,
   `subtotal` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `detalle_venta`
---
-
-INSERT INTO `detalle_venta` (`id_detallev`, `id_producto`, `cantidad`, `id_venta`, `subtotal`) VALUES
-(13, 1, 1, 68, 123234.00);
 
 -- --------------------------------------------------------
 
@@ -197,15 +161,6 @@ CREATE TABLE `detalle_vservi` (
   `id_venta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `detalle_vservi`
---
-
-INSERT INTO `detalle_vservi` (`id_detaservi`, `id_servicio`, `cantidad`, `subtotal`, `id_venta`) VALUES
-(8, 25, 1, 50000.00, 66),
-(9, 25, 1, 50000.00, 67),
-(10, 25, 1, 50000.00, 69);
-
 -- --------------------------------------------------------
 
 --
@@ -218,14 +173,6 @@ CREATE TABLE `documentos` (
   `precio` varchar(100) NOT NULL,
   `tipo` varchar(10) NOT NULL DEFAULT 'documento'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `documentos`
---
-
-INSERT INTO `documentos` (`id_documentos`, `documentos`, `precio`, `tipo`) VALUES
-(10, 'SOAT', '1000000', 'documento'),
-(20, 'TECNO', '200000', 'documento');
 
 -- --------------------------------------------------------
 
@@ -264,18 +211,6 @@ CREATE TABLE `factura_venta` (
   `fecha_vigencia_tecnomecanica` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `factura_venta`
---
-
-INSERT INTO `factura_venta` (`id_venta`, `fecha`, `documento`, `total`, `placa`, `fecha_vigencia_soat`, `fecha_vigencia_tecnomecanica`) VALUES
-(64, '2023-07-30', 1234567890, 1000000.00, 'slx02f', '2024-07-30', NULL),
-(65, '2023-07-30', 1234567890, 200000.00, 'slx02f', NULL, '2024-07-30'),
-(66, '2023-07-30', 1234567890, 50000.00, 'slx02f', NULL, NULL),
-(67, '2023-07-30', 1234567890, 50000.00, 'slx02f', NULL, NULL),
-(68, '2023-07-30', 1234567890, 123234.00, '100569', NULL, NULL),
-(69, '2023-07-30', 1234567890, 50000.00, 'slx02f', NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -286,13 +221,6 @@ CREATE TABLE `linea` (
   `id_linea` int(11) NOT NULL,
   `linea` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `linea`
---
-
-INSERT INTO `linea` (`id_linea`, `linea`) VALUES
-(1, '125');
 
 -- --------------------------------------------------------
 
@@ -305,13 +233,6 @@ CREATE TABLE `marca` (
   `marca` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `marca`
---
-
-INSERT INTO `marca` (`id_marca`, `marca`) VALUES
-(1, 'xtz');
-
 -- --------------------------------------------------------
 
 --
@@ -322,13 +243,6 @@ CREATE TABLE `modelo` (
   `id_modelo` int(11) NOT NULL,
   `modelo` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `modelo`
---
-
-INSERT INTO `modelo` (`id_modelo`, `modelo`) VALUES
-(1, '2023');
 
 -- --------------------------------------------------------
 
@@ -360,14 +274,6 @@ CREATE TABLE `moto` (
   `barcode` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `moto`
---
-
-INSERT INTO `moto` (`placa`, `id_marca`, `descripcion`, `documento`, `km`, `ultimo_cambio`, `proximo_cambio_km`, `proximo_cambio_fecha`, `id_linea`, `id_modelo`, `id_cilindraje`, `id_color`, `id_tip_servicio`, `id_clase`, `id_carroceria`, `capacidad`, `id_combustible`, `numero_motor`, `vin`, `numero_chasis`, `barcode`) VALUES
-('100569', 1, 'jsjsj', 1110458199, 406, NULL, NULL, NULL, 1, 1, 2, 1, 1, 1, 1, 2, 1, '7272871828', '818282', '72737372', '100569'),
-('slx02f', 1, 'kd', 1110458199, 383, '2023-07-30', 3000, '2023-08-29', 1, 1, 2, 1, 1, 1, 1, 2, 1, '939393939', '2838383838', '83838348', 'slx02f');
-
 -- --------------------------------------------------------
 
 --
@@ -386,13 +292,6 @@ CREATE TABLE `productos` (
   `tipo` varchar(10) NOT NULL DEFAULT 'producto'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `productos`
---
-
-INSERT INTO `productos` (`id_productos`, `nom_producto`, `precio`, `descripcion`, `cantidad_ini`, `cantidad_ant`, `id_estado`, `barcode`, `tipo`) VALUES
-(1, 'tornillos', 123234.00, 'jsjsj', 5, 0, 3, '12', 'producto');
-
 -- --------------------------------------------------------
 
 --
@@ -407,14 +306,6 @@ CREATE TABLE `servicio` (
   `tipo` varchar(10) NOT NULL DEFAULT 'servicio'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `servicio`
---
-
-INSERT INTO `servicio` (`id_servicios`, `servicio`, `precio`, `descripcion`, `tipo`) VALUES
-(25, 'cambio aceite', '50000', 'ksk', 'servicio'),
-(60, 'mano de obra', '50000', 'kckd', 'servicio');
-
 -- --------------------------------------------------------
 
 --
@@ -426,13 +317,6 @@ CREATE TABLE `tipo_carroceria` (
   `carroceria` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `tipo_carroceria`
---
-
-INSERT INTO `tipo_carroceria` (`id_carroceria`, `carroceria`) VALUES
-(1, 'normal');
-
 -- --------------------------------------------------------
 
 --
@@ -443,13 +327,6 @@ CREATE TABLE `tipo_servicio` (
   `id_tip_servicio` int(11) NOT NULL,
   `tip_servicio` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `tipo_servicio`
---
-
-INSERT INTO `tipo_servicio` (`id_tip_servicio`, `tip_servicio`) VALUES
-(1, 'parti');
 
 -- --------------------------------------------------------
 
@@ -480,13 +357,6 @@ CREATE TABLE `tipo_vehiculo` (
   `id_clase` int(11) NOT NULL,
   `tip_vehiculo` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `tipo_vehiculo`
---
-
-INSERT INTO `tipo_vehiculo` (`id_clase`, `tip_vehiculo`) VALUES
-(1, 'moto');
 
 -- --------------------------------------------------------
 
@@ -698,7 +568,7 @@ ALTER TABLE `barcode`
 -- AUTO_INCREMENT de la tabla `barcodem`
 --
 ALTER TABLE `barcodem`
-  MODIFY `id_barcode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_barcode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `compras`
@@ -734,7 +604,7 @@ ALTER TABLE `detalle_vservi`
 -- AUTO_INCREMENT de la tabla `factura_venta`
 --
 ALTER TABLE `factura_venta`
-  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT de la tabla `marca`

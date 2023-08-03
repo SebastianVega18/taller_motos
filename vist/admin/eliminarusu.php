@@ -10,7 +10,7 @@ $conectar= $db->conectar();
 <?php
 
   if ((isset($_POST["elimi"]))){
-        $eliminar=$conectar->prepare("DELETE   FROM usuarios  where documento='".$_POST['elimi']."'");
+        $eliminar=$conectar->prepare("DELETE FROM usuarios  where documento='".$_POST['elimi']."'");
         $eliminar->execute();
         echo '<script>alert ("Registro Eliminado");</script>';
         echo '<script> window.location="usuarios.php"</script>';

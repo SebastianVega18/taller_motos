@@ -65,7 +65,7 @@ if ((isset($_POST["agregar"]))&&($_POST["agregar"]=="formu"))
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>productos</title>
-       <?php require_once "index.php"; ?>
+       <?php require_once "navbar.php"; ?>
        
        
 </head>
@@ -75,20 +75,26 @@ if ((isset($_POST["agregar"]))&&($_POST["agregar"]=="formu"))
 
 		<div class="container">
 			<h1>Productos</h1>
+            <br>
 			<div class="row">
 				<div class="col-sm-4">
 					<form id="frmArticulos"  name="formu" method="post" >
                         <input type="hidden" name="estado" value="<?php echo $estado['id_estado'] ?>">
                         <label>Referencia</label>
 						<input type="number" oninput="maxlengthNumber(this)" maxlength="3" min="0" class="form-control input-sm" id="id" name="id">
+                        <br>
 						<label>Nombre</label>
 						<input type="text" oninput="multipletext(this)" maxlength="25" class="form-control input-sm" id="nombre" name="nombre">
+                        <br>
 						<label>Precio</label>
 						<input type="number" oninput="maxlengthNumber(this)" maxlength="10" class="form-control input-sm" id="precio"  min="1" name="precio">
+                        <br>
 						<label>Descripcion</label>
 						<input type="text" oninput="multipltext(this)" maxlength="32" class="form-control input-sm" id="descripcion" name="descripcion">
+                        <br>
 						<label>Cantidad</label>
 						<input type="number" oninput="maxlengthNumber(this)" maxlength="4" min="0" class="form-control input-sm" id="cantidad" name="cantidad">
+                        <br>
                         <label>Codigo</label>
                         <input type="TEXT" oninput="multipletext(this)" maxlength="6" min="0" class="form-control input-sm" id="barcode" name="barcode">
 						<br>

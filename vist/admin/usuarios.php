@@ -84,6 +84,7 @@ $sqlt->execute();
 
 		<div class="container">
 			<h1>Usuarios</h1>
+            <br>
 			<div class="row">
 				<div class="col-sm-4">
 					<form id="frmArticulos"  name="formu" method="post" >
@@ -98,6 +99,7 @@ $sqlt->execute();
 
                              ?>
 						</select>
+                        <br>
                         <label>Tipo de usuario</label>
                         <select class="form-control input-sm" name="tipo">
 							<option disabled selected value="">Selecciona Tipo de usuario</option>
@@ -109,18 +111,25 @@ $sqlt->execute();
 
                              ?>
 						</select>
+                        <br>
                         <label>Documento</label>
 						<input type="number" oninput="maxlengthNumber(this)" maxlength="10" min="0" class="form-control input-sm" id="id" name="id">
+                        <br>
 						<label>Nombre Completo</label>
 						<input type="text" oninput="multipletext(this)" maxlength="32" class="form-control input-sm" id="nombre" name="nombre">
+                        <br>
 						<label>Telefono</label>
 						<input type="number" oninput="maxlengthNumber(this)" minlength="10" maxlength="10" class="form-control input-sm" id="telefono"  min="1" name="telefono">
+                        <br>
 						<label>E-mail</label>
 						<input type="email" oninput="multipletext(this)" maxlength="32" class="form-control input-sm" id="email" name="email">
+                        <br>
                         <label>Fecha de nacimiento</label>
 						<input type="date" min="1968-01-01" max="2005-12-31"  class="form-control input-sm" id="fecha" name="fecha">
+                        <br>
 						<label>Usuario</label>
 						<input type="text" oninput="multipletext(this)" minlength="6" maxlength="16" class="form-control input-sm" id="usuario" name="usuario">
+                        <br>
 						<label>Contraseña</label>
 						<input type="password" oninput="multipletext(this)" minlength="6" maxlength="12" class="form-control input-sm" id="password" name="password">
 						<br>

@@ -68,11 +68,13 @@ $conectar= $db->conectar();
 
 		<div class="container">
 			<h1>Linea</h1>
+            <br>
 			<div class="row">
 				<div class="col-sm-4">
 					<form id="frmArticulos"  name="formu" method="post" >
                         <label>Referencia</label>
 						<input type="number" oninput="maxlengthNumber(this)" maxlength="3" class="form-control input-sm" id="id" name="idl">
+                        <br>
 						<label>Linea</label>
 						<input type="text" oninput="multipletext(this)" maxlength="15" class="form-control input-sm" id="linea" name="linea">
 						<br>

@@ -26,11 +26,13 @@
 
             <li class="active"><a href="index.php"><span class="glyphicon glyphicon-home"></span>‎ ‎ ‎Inicio</a>
             </li> 
-            
+
             <li><a href="misdatos.php"><span class="glyphicon glyphicon-user"></span>‎ ‎ ‎Mis datos</a>
             </li>
+            
             <li><a href="documentos.php"><span class="glyphicon glyphicon-user"></span>‎ ‎ ‎Documentos legales </a>
             </li>
+
             <li class="dropdown" >
             <a href="#" style="color: red"  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span>  <span class="caret"></span></a>
             <ul class="dropdown-menu">

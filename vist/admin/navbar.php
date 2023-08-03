@@ -87,12 +87,9 @@
            <li><a href="motos.php"><span class="glyphicon glyphicon-wrench"></span>‎ ‎ ‎Motos</a>
           </li>
 
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-usd"></span>‎ ‎ ‎Ventas <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="vender.php">Venta de productos</a></li>
-            </ul>
+          <li><a href="vender.php"><span class="glyphicon glyphicon-usd"></span>‎ ‎ ‎Ventas</a>
           </li>
+
           <li><a href="ventas.php"><span class="glyphicon glyphicon-shopping-cart"></span>‎ ‎ ‎Historial de ventas</a>
           </li>
         

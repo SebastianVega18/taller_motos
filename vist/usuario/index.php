@@ -63,7 +63,7 @@
 </head>
 
 <body>
-    <?php require_once("navar.php");?>
+    <?php require_once("navbar.php");?>
 
     <div class="container mt-5">
         <h1>Bienvenido a tu cuenta</h1>

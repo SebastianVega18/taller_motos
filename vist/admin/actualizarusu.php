@@ -7,35 +7,38 @@ $conectar= $db->conectar();
 require_once "../../controller/styles/dependencias.php";
 
 ?>
-   <?php
+<?php
+
+        $doc = $_GET['actu'];
+        $consulta=$conectar->prepare("SELECT * From usuarios WHERE documento = '$doc'" );
+        $consulta->execute();
+        $queryi=$consulta->fetch(PDO::FETCH_ASSOC);
+
+        $e = $queryi['id_estado'];
+        $estado = $conectar -> prepare ("SELECT * FROM estado WHERE id_estado = '$e'");
+        $estado -> execute();
+        $estado1 = $estado -> fetch(PDO::FETCH_ASSOC);
+
+        $u = $queryi['id_tip_usu'];
+        $usuario = $conectar -> prepare ("SELECT * FROM tipo_usuarios WHERE id_tip_usu = '$u'");
+        $usuario -> execute();
+        $usuario1 = $usuario -> fetch(PDO::FETCH_ASSOC);
+        
+        $con=$conectar->prepare("SELECT * from estado WHERE id_estado <3");
+        $con->execute();
     
-        $consulta=$conectar->prepare("SELECT * From usuarios INNER JOIN estado ON usuarios.id_estado=estado.id_estado INNER join tipo_usuarios on usuarios.id_tip_usu=tipo_usuarios.id_tip_usu" );
-         $consulta->execute();
-         $queryi=$consulta->fetch(PDO::FETCH_ASSOC);
-           
-       $con=$conectar->prepare("SELECT * from estado WHERE id_estado <3");
-       $con->execute();
-       
+        $sqlt=$conectar->prepare("SELECT * from tipo_usuarios");
+        $sqlt->execute();
     
 
-       $sqlt=$conectar->prepare("SELECT * from tipo_usuarios");
-       $sqlt->execute();
-       
 
-
-       if ((isset($_POST["actualizar"]))&&($_POST["actualizar"]=="form"))
-       {
+    if ((isset($_POST["actualizar"]))&&($_POST["actualizar"]=="form"))
+    {
         
         $nombre = $_POST['nombre'];
         $telefono = $_POST['telefono'];
         $email = $_POST['email'];
         $estado= $_POST['estado'];
-        
-        
-   
-   
-      
-
 
         if ( $nombre=="" || $telefono=="" || $email=="" || $estado=="")
         {
@@ -45,17 +48,13 @@ require_once "../../controller/styles/dependencias.php";
         
         else
         {
-          $actusql=$conectar->prepare("UPDATE usuarios SET   nombre_completo='$nombre',telefono='$telefono',email='$email' ,id_estado='$estado' WHERE documento='".$_GET['actu']."'");
-          $actusql->execute();
-          echo '<script>alert ("Actualizacion exitosa");</script>';
-          echo '<script> window.location="usuarios.php"</script>';
-            
-    
+            $actusql=$conectar->prepare("UPDATE usuarios SET   nombre_completo='$nombre',telefono='$telefono',email='$email' ,id_estado='$estado' WHERE documento='".$_GET['actu']."'");
+            $actusql->execute();
+            echo '<script>alert ("Actualizacion exitosa");</script>';
+            echo '<script> window.location="usuarios.php"</script>';
         }
-   
-       }
-  
-   ?>
+    }
+?>
 
 
 <!DOCTYPE html>
@@ -68,7 +67,6 @@ require_once "../../controller/styles/dependencias.php";
     <?php require_once "navbar.php"  ?>
 </head>
 <body>
-     
 		<div class="container">
 			<h1>Usuarios</h1>
 			<div class="row">
@@ -76,33 +74,36 @@ require_once "../../controller/styles/dependencias.php";
 					<form id="frmArticulos"  name="form" method="post" >
 						<label>Estado</label>
                         <select name="estado" class="form-control input-sm" >
-							<option  value="<?php echo($queryi['id_estado'])?>"><?php echo($queryi['estados'])?></option>
+							<option  value="<?php echo($queryi['id_estado'])?>"><?php echo($estado1['estados'])?></option>
 							<?php foreach($con as $resul){
-                             ?>
+                            ?>
 								<option value="<?php echo($resul['id_estado'])?>"><?php echo($resul['estados'])?> </option>
 							<?php  
-                             };
+                            };
 
-                             ?>
+                            ?>
 						</select>
+                        <br>
                         <label>Tipo de usuario</label>
                         <select disabled name="tipo" class="form-control input-sm" name="tipo">
-							<option value="<?php echo($queryi['id_tip_usu'])?>"><?php echo($queryi['tip_usu'])?> </option>
+							<option value="<?php echo($queryi['id_tip_usu'])?>"><?php echo($usuario1['tip_usu'])?> </option>
 							<?php foreach($sqlt as $query){
-                             ?>
+                            ?>
 								<option value="<?php echo($query['id_tip_usu'])?>"><?php echo($query['tip_usu'])?> </option>
 							<?php  
-                             };
+                            };
 
-                             ?>
+                            ?>
 						</select>
+                        <br>
 						<label>Nombre Completo</label>
 						<input type="text" oninput="multipletext(this)" maxlength="32" class="form-control input-sm" id="nombre" name="nombre" value="<?php echo($queryi['nombre_completo'])?>">
+                        <br>
 						<label>Telefono</label>
 						<input type="number" oninput="maxlengthNumber(this)" minlength="10" maxlength="10" class="form-control input-sm" id="telefono"  min="1" name="telefono" value="<?php echo($queryi['telefono'])?>">
+                        <br>
 						<label>Email</label>
 						<input type="email" oninput="multipletext(this)" maxlength="32" class="form-control input-sm" id="email" name="email"  value="<?php echo($queryi['email'])?>">
-						
 						<br>
 						<button name="validar" type="submit" id="btnAgregaArticulo" class="btn btn-primary"  >Actualizar</button>
                         <input type="hidden" name="actualizar" value="form">

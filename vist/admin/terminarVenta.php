@@ -1,5 +1,5 @@
 <?php
-if($_POST["total"] <= 0){
+if($_POST["gran_total"] <= 0){
 	echo '<script> alert ("NO HA INGRESADO PRODUCTOS");</script>';
 	echo '<script> window.location="vender.php"</script>';
 }
@@ -11,8 +11,8 @@ if(!isset($_POST["placa"])){
 }
 
 session_start();
-$_SESSION["productota"]= $_POST["total"];
-$total = $_POST["total"];
+$_SESSION["productota"]= $_POST["gran_total"];
+$total = $_POST["gran_total"];
 $documento=$_SESSION["documento"];
 $placa=$_POST["placa"];
 require_once("../../bd/conexion.php");
@@ -58,7 +58,7 @@ $actusql->execute();
 $conectar->commit();
 unset($_SESSION["carrito"]);
 $_SESSION["carrito"] = [];
-header("Location: ./vender.php?status=1");
+header("Location: ./vender.php?status=10");
 ?>
 
 <?php

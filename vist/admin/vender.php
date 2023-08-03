@@ -1,5 +1,6 @@
 <?php
-require_once "navbar.php";
+
+require_once ("../../bd/conexion.php");
 
 $db = new database();
 $conectar = $db->conectar();
@@ -86,7 +87,8 @@ $granTotal = 0;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ventas</title>
-   
+    <?php require_once "navbar.php";?>
+
     <!-- Bootstrap CSS -->
 
     <!-- Select2 CSS -->
@@ -120,6 +122,7 @@ $granTotal = 0;
         <br>
         <form method="post" action="agregarAlCarrito.php">
             <label for="servicio">Servicio</label>
+            <br>
             <select class="form-control" name="codigo" id="servicio" required>
                 <option value="">Seleccione un servicio, producto o documento</option>
                 <?php
@@ -139,9 +142,10 @@ $granTotal = 0;
                 }
                 ?>
             </select>
+            <br>
             <button type="submit" class="btn btn-primary">Agregar al carrito</button>
         </form>
-
+        <br>
         <div class="table-responsive mt-3">
             <table class="table table-bordered">
                 <thead>
@@ -167,7 +171,7 @@ $granTotal = 0;
                             <td><?php echo $item["nombre"]; ?></td>
                             <td><?php echo $item["descripcion"]; ?></td>
                             <td><?php echo $item["precio"]; ?></td>
-                            <td><a class="btn btn-danger" href="<?php echo "quitarDelCarrito.php?indice=" . $indice; ?>">Quitar</a></td>
+                            <td><a class="btn btn-danger" href="<?php echo "quitarDelCarrito.php?indice=".$indice; ?>">Quitar</a></td>
                             <td>
                                 <form action="cambiar_cantidad.php" method="post">
                                     <input name="indice" type="hidden" value="<?php echo $indice; ?>">
@@ -191,7 +195,7 @@ $granTotal = 0;
                     <option value="<?php echo ($moto['placa']) ?>"><?php echo ($moto["placa"]) ?> </option>
                 <?php } ?>
             </select>
-
+            <br>
             <label class="label1">Vendedor</label>
             <select class="form-control select-box" id="vendedor" name="vendedor">
                 <option disabled selected value="">Elige un vendedor</option>
@@ -199,7 +203,7 @@ $granTotal = 0;
                     <option value="<?php echo ($vendedor['documento']) ?>"><?php echo ($vendedor['nombre_completo']) ?> </option>
                 <?php } ?>
             </select>
-
+            <br>
             <input name="gran_total" type="hidden" value="<?php echo $granTotal; ?>">
             <button type="submit" class="btn btn-success">Terminar venta</button>
             <a href="cancelarVenta.php" class="btn btn-danger">Cancelar venta</a>

@@ -1,6 +1,6 @@
 <?php 
-   
-    include("../../controller/validar.php");
+
+    session_start();
     require_once("../../bd/conexion.php");
     require_once ("../../controller/styles/dependencias.php");
 
@@ -37,7 +37,7 @@
 <head>
     <link rel="shortcut icon" href="../../controller/img/icono.png" type="image/x-icon">
     <title>Mis datos</title>
-    <?php include_once("navar.php");?>
+    <?php include_once("navbar.php");?>
 </head>
 <body>
 <div class="container">

@@ -48,24 +48,21 @@
 <body>
 		<div class="container">
 			<h1>Cilindraje</h1>
+            <br>
 			<div class="row">
 				<div class="col-sm-4">
-					<form id="frmArticulos"  name="formu" method="post" >
-						
+					<form id="frmArticulos"  name="formu" method="post" >			
                         <label>Referencia</label>
 						<input type="number" disabled class="form-control input-sm" id="id" name="idu"   value="<?php echo $query['id_cilindraje'] ?>">
-
+                        <br>
 						<label>Cilindrjae</label>
 						<input type="text" oninput="maxLengthNumber(this)" maxlength="10" class="form-control input-sm" id="nombre" name="nombreu"  value="<?php echo $query['cilindraje'] ?>">
-                    
 						<br>
 						<button name="validar" type="submit" id="btnAgregaArticulo" class="btn btn-primary"  >Actualizar</button>
                         <input type="hidden" name="actualizar" value="form">
-                        
                         <button type="submit" class="btn btn-warning"><a href="cilindraje.php" style="color:#fff">Regresar</a></button>
 					</form>
 				</div>
-				
 			</div>
 		</div>
     <script>

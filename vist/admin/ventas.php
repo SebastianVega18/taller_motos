@@ -52,6 +52,7 @@ $facturas = $consultaFacturas->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <div class="container mt-5">
         <h1 class="mb-4">Facturas de Ventas</h1>
+        <br>
         <div class="table-responsive">
             <table class="table table-striped table-bordered">
                 <thead class="table-dark">
@@ -115,6 +116,7 @@ $facturas = $consultaFacturas->fetchAll(PDO::FETCH_ASSOC);
                 <i class="fas fa-print me-2"></i>Imprimir Facturas
             </button>
         </div>
+        <br>
     </div>
     <!-- Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
