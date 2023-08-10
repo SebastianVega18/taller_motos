@@ -57,7 +57,6 @@ $facturas = $consultaFacturas->fetchAll(PDO::FETCH_ASSOC);
             <table class="table table-striped table-bordered">
                 <thead class="table-dark">
                     <tr>
-                        <th>ID Venta</th>
                         <th>Placa del Vehículo</th>
                         <th>Fecha de Venta</th>
                         <th>Fecha de Vigencia SOAT</th>
@@ -73,7 +72,6 @@ $facturas = $consultaFacturas->fetchAll(PDO::FETCH_ASSOC);
                 <tbody>
                     <?php foreach ($facturas as $factura) { ?>
                         <tr>
-                            <td><?php echo $factura["id_venta"]; ?></td>
                             <td><?php echo $factura["placa"]; ?></td>
                             <td><?php echo $factura["fecha"]; ?></td>
                             <td><?php echo $factura["fecha_vigencia_soat"]; ?></td>
@@ -111,11 +109,11 @@ $facturas = $consultaFacturas->fetchAll(PDO::FETCH_ASSOC);
                 </tbody>
             </table>
         </div>
-        <div class="text-center mt-4">
+        <!-- <div class="text-center mt-4">
             <button class="btn btn-primary" onclick="window.print()">
                 <i class="fas fa-print me-2"></i>Imprimir Facturas
             </button>
-        </div>
+        </div> -->
         <br>
     </div>
     <!-- Bootstrap JS -->

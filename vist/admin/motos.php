@@ -58,9 +58,6 @@ $combustible->execute();
         $id_combustible=$_POST['combustible'];
         $numero_motor=$_POST['num_motor'];
         $vin=$_POST['vin'];
-        $numero_chasis=$_POST['num_chasis'];
-
-        $barcode = $_POST['id'];
         
 
         $validar="SELECT * FROM moto WHERE placa='$id'";
@@ -74,7 +71,7 @@ $combustible->execute();
 
         }
 
-        else if ($id==""  || $descripcion=="" || $cantidad=="" ||$marca==""||$propietario==""||$id_linea==""||$id_modelo==""||$id_cilindraje==""||$id_color==""||$id_tip_servicio==""||$id_clase==""||$id_carroceria==""||$capacidad==""||$id_combustible==""||$numero_motor==""||$vin==""||$numero_chasis=="")
+        else if ($id==""  || $descripcion=="" || $cantidad=="" ||$marca==""||$propietario==""||$id_linea==""||$id_modelo==""||$id_cilindraje==""||$id_color==""||$id_tip_servicio==""||$id_clase==""||$id_carroceria==""||$capacidad==""||$id_combustible==""||$numero_motor==""||$vin=="")
         {
             echo '<script> alert (" EXISTEN DATOS VACIOS");</script>';
             echo '<script> window.location="motos.php"</script>';
@@ -82,8 +79,8 @@ $combustible->execute();
         
         else
         {
-            $insertsql=$conectar->prepare("INSERT INTO moto(placa,id_marca,descripcion,documento,km,id_linea,id_modelo,id_cilindraje,id_color,id_tip_servicio,id_clase,id_carroceria,capacidad,id_combustible,numero_motor,vin,numero_chasis, barcode) VALUES (?,?,?, ?,?, ?,?,?,?,?,?,?,?,?,?,?,?,?);");
-            $insertsql->execute([$id,$marca,$descripcion,$propietario,$cantidad,$id_linea,$id_modelo,$id_cilindraje,$id_color,$id_tip_servicio,$id_clase,$id_carroceria,$capacidad,$id_combustible,$numero_motor,$vin,$numero_chasis, $barcode]);
+            $insertsql=$conectar->prepare("INSERT INTO moto(placa,id_marca,descripcion,documento,km,id_linea,id_modelo,id_cilindraje,id_color,id_tip_servicio,id_clase,id_carroceria,capacidad,id_combustible,numero_motor,viN) VALUES (?,?,?, ?,?, ?,?,?,?,?,?,?,?,?,?,?);");
+            $insertsql->execute([$id,$marca,$descripcion,$propietario,$cantidad,$id_linea,$id_modelo,$id_cilindraje,$id_color,$id_tip_servicio,$id_clase,$id_carroceria,$capacidad,$id_combustible,$numero_motor,$vin]);
             echo '<script>alert ("Registro Exitoso, Gracias");</script>';
             echo '<script> window.location="motos.php"</script>';
         }
@@ -250,13 +247,10 @@ $combustible->execute();
 						</select>
                         <br>
                         <label>Numero de motor</label>
-                        <input type="number" oninput="maxlengthNumber(this)" maxlength="10" class="form-control input-sm" id="num_motor" name="num_motor">
+                        <input type="text" oninput="multipletext(this)" maxlength="10" class="form-control input-sm" id="num_motor" name="num_motor">
                         <br>
                         <label>VIN</label>
-                        <input type="number" oninput="maxlengthNumber(this)" maxlength="10" class="form-control input-sm" id="vin" name="vin">
-                        <br>
-                        <label>Numero de chasis</label>
-                        <input type="number" oninput="maxlengthNumber(this)" maxlength="10" class="form-control input-sm" id="num_chasis" name="num_chasis">
+                        <input type="text" oninput="multipletext(this)" maxlength="10" class="form-control input-sm" id="vin" name="vin">
                         <br>
 						<button name="validar" type="submit" id="btnAgregaArticulo" class="btn btn-success"  >Agregar</button>
                         <input type="hidden" name="agregar" value="formu">

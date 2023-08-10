@@ -50,6 +50,20 @@
     $inicioMoto = ($paginaActual - 1) * $motosPorPagina;
     $motosPaginadas = array_slice($motos, $inicioMoto, $motosPorPagina);
 ?>
+<!-- <?php
+
+$hoy = new DateTime();
+$fechaBD = new DateTime($proximoCambioAceiteFecha);
+
+$intervalo = $hoy->diff($fechaBD);
+$diasRestantes = $intervalo->days;
+
+if($diasRestantes == 15){
+    echo '<script> window.location="correo.php?variable='.$documento_id.'"</script>';
+    exit();
+}
+?> -->
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -74,7 +88,7 @@
                     <h2 class="accordion-header" id="heading-<?php echo $moto['placa']; ?>">
 
                             Información de tu moto (Placa: <?php echo $moto['placa']; ?>)
-                       
+                    
                     </h2>
                     <div id="collapse-<?php echo $moto['placa']; ?>" class="accordion-collapse collapse show" aria-labelledby="heading-<?php echo $moto['placa']; ?>" data-bs-parent="#accordion-<?php echo $moto['placa']; ?>">
                         <div class="accordion-body">
@@ -141,7 +155,6 @@
                                 <table id="tablaFacturas" class="table table-striped table-bordered">
                                     <thead class="table-dark">
                                         <tr>
-                                            <th>ID Venta</th>
                                             <th>Fecha de Venta</th>
                                             <th>Total</th>
                                             <th>Productos</th>
@@ -152,7 +165,6 @@
                                     <tbody>
                                         <?php foreach ($facturas as $factura) { ?>
                                             <tr>
-                                                <td><?php echo $factura["id_venta"]; ?></td>
                                                 <td><?php echo $factura["fecha"]; ?></td>
                                                 <td><?php echo $factura["total"]; ?></td>
                                                 <td>

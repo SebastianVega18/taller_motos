@@ -127,4 +127,3 @@ if((isset($_POST['actualizar'])))
     </script>
 </body>
 </html>
-

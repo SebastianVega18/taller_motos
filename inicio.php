@@ -65,11 +65,25 @@ if(isset($_POST["validar"])) {
     
                 // Si se alcanza el número máximo de intentos, bloquear al usuario
                 if ($_SESSION['intentos'] >= $intentosPermitidos) {
-                    $bloqueo = $conectar->prepare("UPDATE usuarios SET id_estado = '2' WHERE documento = '$cedula'");
-                    $bloqueo->execute();
-                    echo '<script>alert("Ha excedido el número de intentos, por tal motivo ha sido bloqueado");</script>';
-                    echo '<script>window.location="vist/admin/bloqueo.php"</script>';
-                    exit();
+                    $blo = $conectar -> prepare ("SELECT id_tip_usu FROM usuarios WHERE documento = '$cedula'");
+                    $blo -> execute();
+                    $bloq = $blo -> fetch();
+
+                    $bloque = $bloq['id_tip_usu'];
+
+                    if($bloque == 1){
+                        $bloqueo = $conectar->prepare("UPDATE usuarios SET id_estado = '2' WHERE documento = '$cedula'");
+                        $bloqueo->execute();
+                        echo '<script>alert("Ha excedido el número de intentos, por tal motivo ha sido bloqueado");</script>';
+                        echo '<script>window.location="vist/admin/bloqueoa.php?variable1='.$cedula.'"</script>';
+                        exit();
+                    }else{
+                        $bloqueo = $conectar->prepare("UPDATE usuarios SET id_estado = '2' WHERE documento = '$cedula'");
+                        $bloqueo->execute();
+                        echo '<script>alert("Ha excedido el número de intentos, por tal motivo ha sido bloqueado");</script>';
+                        echo '<script>window.location="vist/admin/bloqueo.php?variable='.$cedula.'"</script>';
+                        exit();
+                    }
                 } else {
                     // Si la contraseña es incorrecta, mostrar un mensaje y permitir otro intento
                     echo '<script>alert("Contraseña Incorrecta. Intento ' . $_SESSION['intentos'] . ' de ' . $intentosPermitidos . '");</script>';
