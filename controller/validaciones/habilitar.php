@@ -8,42 +8,30 @@
         if((isset($_POST['actualizar'])))
         {
 
-            $cedula = $_POST['documento'];
-            $password1 = $_POST['contra'];
+            $token = $_POST['token'];
 
-            $sqli = $conectar->prepare("SELECT password FROM usuarios WHERE documento = :cedula");
-            $sqli->bindParam(':cedula', $cedula);
+            $sqli = $conectar->prepare("SELECT token FROM tokens WHERE token = :token");
+            $sqli->bindParam(':token', $token);
             $sqli->execute();
-            $fila1 = $sqli->fetch();
-    
-            if($fila1 !== false){
+            $fila1 = $sqli->fetch(PDO::FETCH_ASSOC);
                 
-                $password = $fila1['password'];
+            $token1 = $fila1['token'];
     
-                $pass = password_verify($password1,$password);
-    
-                if($pass){
+            if($token == $token1){
 
-                    $habilitar = $conectar -> prepare("UPDATE usuarios SET id_estado = 1 WHERE documento = '$cedula'");
-                    $habilitar -> execute();
-                    echo '<script>alert("Administrador su estado a pasado de inactivo a activo");</script>';
-                    echo '<script>window.location="../../index.html"</script>';
-                    exit();
-
-                }else{
-
-                    echo '<script>alert("ERROR, la contraseña no coincide con la resgistrada");</script>';
-                    echo '<script>window.location="habilitar.php"</script>';
-                    exit();
-
-                }
-            }else{
-
-                echo '<script>alert("ERROR");</script>';
+                $habilitar = $conectar -> prepare("UPDATE usuarios SET id_estado = 1 WHERE id_estado = 1");
+                $habilitar -> execute();
+                echo '<script>alert("Administrador su estado a pasado de inactivo a activo");</script>';
                 echo '<script>window.location="../../index.html"</script>';
                 exit();
+            }else{
+
+                echo '<script>alert("ERROR, los tokens no coinciden");</script>';
+                echo '<script>window.location="habilitar.php"</script>';
+                exit();
             }
-    }
+        }
+
 ?>
 
 
@@ -72,12 +60,8 @@
             <p>Completa la informacion</p>
             <br>
             <div class="campo">
-                <label for="contra">Documento</label>
-                <input type="number" oninput="maxlengthNumber(this);" minlength="6" maxlength="12" placeholder="Tu documento" id="contra" name="documento" >
-            </div>
-            <div class="campo">
-                <label for="contra">Contraseña </label>
-                <input type="password" oninput="multipletext(this);" minlength="6" maxlength="12" placeholder="Tu contraseña" id="contra" name="contra" >
+                <label for="contra">Token</label>
+                <input type="text" oninput="multipletext(this);"  placeholder="Tu token" id="contra" name="token" >
             </div>
             <br>
             <input class="boton azul registro-btn" type="submit" value="Verificar" name="actualizar" >
